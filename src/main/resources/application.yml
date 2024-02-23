@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5432/account
+    username: postgres
+    password: Qq654321
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: false

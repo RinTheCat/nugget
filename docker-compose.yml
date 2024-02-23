@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    restart: always
+    image: postgres
+    container_name: database
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: account
+      POSTGRES_PASSWORD: Qq654321
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  app:
+    depends_on:
+      - db
+    container_name: app
+    build: ./
+    environment:
+      JAVA_OPTS: |-
+        -Dspring.profiles.active=docker
+        -Xmx3500m
+        -Xms1500m
+      SPRING_CONFIG_LOCATION: /usr/config/
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./logs:/log

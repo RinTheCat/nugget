@@ -27,3 +27,5 @@ replay_pid*
 .idea/
 .mvn/
 target/
+db_data/
+logs/
