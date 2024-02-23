@@ -1,21 +1,49 @@
 version: '3.8'
 services:
-  db:
+  first-db:
     restart: always
     image: postgres
-    container_name: database
+    container_name: database-1
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: account
+      POSTGRES_DB: account_db
       POSTGRES_PASSWORD: Qq654321
     ports:
       - '5432:5432'
     volumes:
-      - ./db_data:/var/lib/postgresql/data
+      - ./db_data/first_db_data:/var/lib/postgresql/data
+
+  second-db:
+    restart: always
+    image: postgres
+    container_name: database-2
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: person_db
+      POSTGRES_PASSWORD: Qq654321
+    ports:
+      - '5433:5432'
+    volumes:
+      - ./db_data/second_db_data:/var/lib/postgresql/data
+
+  third-db:
+    restart: always
+    image: postgres
+    container_name: database-3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: company_db
+      POSTGRES_PASSWORD: Qq654321
+    ports:
+      - '5434:5432'
+    volumes:
+      - ./db_data/third_db_data:/var/lib/postgresql/data
 
   app:
     depends_on:
-      - db
+      - first-db
+      - second-db
+      - third-db
     container_name: app
     build: ./
     environment:
