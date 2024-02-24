@@ -1,7 +1,8 @@
-package ru.demo.somebank.domain;
+package ru.demo.somebank.domain.person;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import ru.demo.somebank.domain.GroupType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

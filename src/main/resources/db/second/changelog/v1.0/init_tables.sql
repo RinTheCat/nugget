@@ -32,7 +32,8 @@ create table person.groups_and_people
 (
     group_id uuid NOT NULL,
     person_id uuid NOT NULL,
-    constraint group_foreign_key foreign key (person_id) references person."group"(id),
+    last_modified_date timestamp with time zone NOT NULL,
+    constraint group_foreign_key foreign key (group_id) references person."group"(id),
     constraint person_foreign_key foreign key (person_id) references person.person(id),
     primary key (group_id, person_id)
 );

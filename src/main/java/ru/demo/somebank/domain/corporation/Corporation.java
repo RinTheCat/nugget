@@ -1,4 +1,4 @@
-package ru.demo.somebank.domain;
+package ru.demo.somebank.domain.corporation;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -12,20 +12,18 @@ import java.util.UUID;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(schema = "person", name = "person")
-public class Person {
+@Table(schema = "company", name = "corporation")
+public class Corporation {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(generator = "org.hibernate.id.UUIDGenerator")
     UUID id;
 
-    @Column(name = "first_name")
-    String firstName;
+    @Column(name = "name")
+    String name;
 
-    @Column(name = "last_name")
-    String lastName;
+    @Column(name = "inn")
+    String inn;
 
-    @Column(name = "patronymic")
-    String patronymic;
 }

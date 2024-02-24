@@ -1,4 +1,4 @@
-package ru.demo.somebank.domain;
+package ru.demo.somebank.domain.person;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

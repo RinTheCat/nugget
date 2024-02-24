@@ -1,7 +1,14 @@
-package ru.demo.somebank.domain;
+package ru.demo.somebank.domain.account;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import ru.demo.somebank.domain.OwnerType;
+import ru.demo.somebank.domain.ServiceType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +16,19 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
+@Getter
+@Setter
 @Entity
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(schema = "account", name = "account")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
 
     @Id
@@ -42,4 +56,11 @@ public class Account {
     @Column(name = "owner_id")
     UUID owner;
 
+    @Column(name = "last_modified_date")
+    ZonedDateTime lastModifiedDate;
+
+    @PrePersist
+    private void prePersist() {
+        this.lastModifiedDate = ZonedDateTime.now();
+    }
 }
