@@ -28,7 +28,7 @@ public class Group {
     @GeneratedValue(generator = "org.hibernate.id.UUIDGenerator")
     UUID id;
 
-    @Column(name = "type")
+    @Column(name = "group_type")
     @Enumerated(EnumType.STRING)
     GroupType type;
 

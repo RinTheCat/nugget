@@ -1,4 +1,4 @@
-package ru.demo.somebank.service;
+package ru.demo.somebank.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,11 @@ import ru.demo.somebank.dto.AccountDto;
 import ru.demo.somebank.exception.DataNotFoundException;
 import ru.demo.somebank.mapper.AccountMapper;
 import ru.demo.somebank.repository.account.AccountRepository;
-import ru.demo.somebank.repository.corporation.CorporationRepository;
-import ru.demo.somebank.repository.person.GroupRepository;
-import ru.demo.somebank.repository.person.IPRepository;
-import ru.demo.somebank.repository.person.PersonRepository;
+import ru.demo.somebank.service.AccountService;
+import ru.demo.somebank.service.CorporationService;
+import ru.demo.somebank.service.GroupService;
+import ru.demo.somebank.service.IPService;
+import ru.demo.somebank.service.PersonService;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -23,17 +24,15 @@ import java.util.UUID;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountMapper mapper;
-    private final IPRepository ipRepository;
-    private final GroupRepository groupRepository;
-    private final PersonRepository personRepository;
+    private final IPService ipService;
+    private final GroupService groupService;
+    private final PersonService personService;
     private final AccountRepository accountRepository;
-    private final CorporationRepository corporationRepository;
+    private final CorporationService corporationService;
 
     @Override
     public AccountDto createAccount(CreateAccountRequest request) {
-        final boolean exists = checkIfExists(request.getOwnerId(), request.getTypeOfOwner().value());
-
-        if (!exists) throw new DataNotFoundException();
+        checkExistence(request.getOwnerId(), request.getTypeOfOwner().value());
 
         Account account = Account.builder()
                 .number(request.getNumber())
@@ -54,19 +53,23 @@ public class AccountServiceImpl implements AccountService {
         return mapper.toDto(account);
     }
 
-    private boolean checkIfExists(UUID id, String ownerType) {
+    private void checkExistence(UUID id, String ownerType) {
         final OwnerType type = OwnerType.valueOf(ownerType);
         switch (type) {
             case IP:
-                return ipRepository.findById(id).isPresent();
+                ipService.getIP(id);
+                break;
             case GROUP:
-                return groupRepository.findById(id).isPresent();
+                groupService.getGroup(id);
+                break;
             case PERSON:
-                return personRepository.findById(id).isPresent();
+                personService.getPerson(id);
+                break;
             case CORPORATION:
-                return corporationRepository.findById(id).isPresent();
+                corporationService.getCorporation(id);
+                break;
             default:
-                return false;
+                throw new DataNotFoundException();
         }
     }
 }

@@ -1,5 +1,6 @@
 package ru.demo.somebank.config;
 
+import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
@@ -29,7 +30,7 @@ public class CorporationDatasourceConfiguration {
     @Bean("corporationDataSource")
     @ConfigurationProperties(prefix = "custom.datasource.third")
     public DataSource thirdDataSource() {
-        return DataSourceBuilder.create().build();
+        return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
 
     @Bean("corporationLiquibase")
