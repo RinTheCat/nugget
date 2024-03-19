@@ -1,0 +1,73 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate.ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+custom:
+  datasource:
+    first:
+      username: postgres
+      password: Qq654321
+      driver-class-name: org.postgresql.Driver
+      liquibase:
+        change-log: classpath:/db/first/changelog/changelog.xml
+      hikari:
+        connectionTimeout: 10000
+        idleTimeout: 60000
+        maxLifetime: 180000
+        maximumPoolSize: 50
+        driverClassName: org.postgresql.Driver
+    second:
+      username: postgres
+      password: Qq654321
+      driver-class-name: org.postgresql.Driver
+      liquibase:
+        change-log: classpath:/db/second/changelog/changelog.xml
+      hikari:
+        connectionTimeout: 10000
+        idleTimeout: 60000
+        maxLifetime: 180000
+        maximumPoolSize: 50
+        driverClassName: org.postgresql.Driver
+    third:
+      username: postgres
+      password: Qq654321
+      driver-class-name: org.postgresql.Driver
+      liquibase:
+        change-log: classpath:/db/third/changelog/changelog.xml
+      hikari:
+        connectionTimeout: 10000
+        idleTimeout: 60000
+        maxLifetime: 180000
+        maximumPoolSize: 50
+        driverClassName: org.postgresql.Driver
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+custom:
+  datasource:
+    first:
+      jdbc-url: jdbc:postgresql://host.docker.internal:5432/account_db
+    second:
+      jdbc-url: jdbc:postgresql://host.docker.internal:5433/person_db
+    third:
+      jdbc-url: jdbc:postgresql://host.docker.internal:5434/company_db
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+custom:
+  datasource:
+    first:
+      jdbc-url: jdbc:postgresql://localhost:5432/account_db
+    second:
+      jdbc-url: jdbc:postgresql://localhost:5433/person_db
+    third:
+      jdbc-url: jdbc:postgresql://localhost:5434/company_db

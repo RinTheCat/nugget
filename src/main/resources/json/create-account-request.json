@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Запрос на создание счёта",
+  "type": "object",
+  "properties": {
+    "number": {
+      "description": "Номер договора на создание счёта",
+      "type": "string"
+    },
+    "typeOfService": {
+      "description": "Тип обслуживания",
+      "type": "string",
+      "enum": [
+        "ECONOMY",
+        "STANDARD",
+        "VIP"
+      ]
+    },
+    "typeOfOwner": {
+      "description": "Тип владельца счёта",
+      "type": "string",
+      "enum": [
+        "GROUP",
+        "CORPORATION",
+        "PERSON",
+        "IP"
+      ]
+    },
+    "ownerId": {
+      "description": "Идентификатор владельца в соответствующей БД",
+      "type": "string",
+      "format": "uuid"
+    }
+  },
+  "required": [
+    "number",
+    "typeOfService",
+    "typeOfOwner",
+    "ownerId"
+  ],
+  "additionalProperties": false
+}
