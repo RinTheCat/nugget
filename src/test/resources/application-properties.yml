@@ -1,0 +1,14 @@
+custom:
+  datasource:
+    first:
+      username: ${ACCOUNT.USERNAME}
+      password: ${ACCOUNT.PASSWORD}
+      jdbc-url: ${ACCOUNT.URL}
+    second:
+      username: ${PERSON.USERNAME}
+      password: ${PERSON.PASSWORD}
+      jdbc-url: ${PERSON.URL}
+    third:
+      username: ${COMPANY.USERNAME}
+      password: ${COMPANY.PASSWORD}
+      jdbc-url: ${COMPANY.URL}
